@@ -6,19 +6,17 @@ exports.getActivityFeed = async (req, res) => {
         const currentUser = await User.findById(req.user.id);
         const blockedIds = currentUser.blockedUsers || [];
 
-        // Logic:
-        // 1. Show logs where Actor is NOT blocked
-        // 2. Show logs where Target is NOT blocked OR Target is NULL (like delete logs)
+        
         
         const feed = await Activity.find({
-            actor: { $nin: blockedIds }, // Filter out blocked actors
+            actor: { $nin: blockedIds }, 
             $or: [
-                { targetUser: { $exists: false } }, // Show if no target
-                { targetUser: null },               // Show if target is null
-                { targetUser: { $nin: blockedIds } } // Show if target is not blocked
+                { targetUser: { $exists: false } }, 
+                { targetUser: null },               
+                { targetUser: { $nin: blockedIds } } 
             ]
         })
-        .sort({ createdAt: -1 }) // Newest first
+        .sort({ createdAt: -1 }) 
         .limit(20);
 
         res.json(feed);

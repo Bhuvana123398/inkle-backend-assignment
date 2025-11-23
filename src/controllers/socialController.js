@@ -2,7 +2,7 @@ const Post = require('../models/Post');
 const User = require('../models/User');
 const logActivity = require('../utils/logger');
 
-// 1. Create Post
+
 exports.createPost = async (req, res) => {
     try {
         const user = await User.findById(req.user.id);
@@ -21,7 +21,7 @@ exports.createPost = async (req, res) => {
     }
 };
 
-// 2. Like Post
+
 exports.likePost = async (req, res) => {
     try {
         const post = await Post.findById(req.params.id).populate('author');
@@ -44,7 +44,7 @@ exports.likePost = async (req, res) => {
     }
 };
 
-// 3. Follow User (With Debug Logs)
+
 exports.followUser = async (req, res) => {
     console.log("--- Starting Follow User ---");
     try {
@@ -72,7 +72,7 @@ exports.followUser = async (req, res) => {
     }
 };
 
-// 4. Block User
+
 exports.blockUser = async (req, res) => {
     try {
         const currentUser = await User.findById(req.user.id);

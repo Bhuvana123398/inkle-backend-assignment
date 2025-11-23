@@ -1,4 +1,4 @@
-// Check if user has one of the allowed roles
+
 const permit = (...allowedRoles) => {
     return (req, res, next) => {
         if (req.user && allowedRoles.includes(req.user.role)) {
